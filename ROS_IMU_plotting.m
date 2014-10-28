@@ -5,11 +5,11 @@ clc
 close all
 %% Load a bag and get information about it
 % Using load() lets you auto-complete filepaths.
-bag = ros.Bag.load('2014-10-27-18-12-49.bag');
+bag = ros.Bag.load('2014-10-28-14-04-48.bag');
 bag.info()
 %% Read all messages on a few topics
-topic1 = '/imu/data';
-topic2 = '/imu/position';
+topic1 = 'imu/data';	% make sure it matches EXACTLY, including all / or without / the data shown in the command window here
+topic2 = 'imu/position';
 
 %% Re-read msgs on topic1 and get their metadata
 [imu_data, imu_data_meta] = bag.readAll(topic1);
@@ -25,7 +25,7 @@ pulled_down_acc = times_acc-times_acc(1);
 
 figure(213123);
 % Plot linear speed over time
-plot(pulled_down_acc, acceleration(1, :));
+plot(pulled_down_acc, acceleration);
 ylim([-5 5]);
 
 
@@ -36,5 +36,5 @@ times_pos = cellfun(@(x) x.time.time, imu_position_meta); % Get timestamps
 pulled_down_pos = times_pos-times_pos(1);
 
 figure(4352242);
-plot (pulled_down_pos, position(1,:));
+plot (pulled_down_pos, position);
 %% Learn more
